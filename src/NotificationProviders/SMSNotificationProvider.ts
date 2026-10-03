@@ -11,7 +11,7 @@ class SMSNotificationProvider implements NotificationProviderBase<SMSNotificatio
 
     type = NotificationTypes.SMS
     validatePayload(payload: SMSNotificationPayload) {
-        return {success: true, attemptedTime: Date.now()};
+        return true;
     }
     sendNotification(payload: SMSNotificationPayload) {
         return {success: true, attemptedTime: Date.now()};

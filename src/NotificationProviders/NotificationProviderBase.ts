@@ -10,10 +10,10 @@ export interface NotificationResponse {
     attemptedTime: ReturnType<typeof Date.now>
 
 }
-abstract class NotificationProviderBase {
+abstract class NotificationProviderBase<T extends NotiicationPayload = NotiicationPayload> {
     abstract type: NotificationTypes;
-    abstract validatePayload(payload:NotiicationPayload): boolean;
-    abstract sendNotification(payload:NotiicationPayload): NotificationResponse; 
+    abstract validatePayload(payload: T): boolean;
+    abstract sendNotification(payload: T): NotificationResponse; 
 }
 
 export default NotificationProviderBase;
