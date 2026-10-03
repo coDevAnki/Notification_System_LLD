@@ -1,4 +1,4 @@
-import NotificationTypes from "../enums/NotificationTypes.js";
+import NotificationTypes from "../enums/NotificationTypes";
 
 export interface NotiicationPayload{
     channel: NotificationTypes,

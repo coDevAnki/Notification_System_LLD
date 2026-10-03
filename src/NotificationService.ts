@@ -1,7 +1,7 @@
-import NotificationStatus from "./enums/NotificationStatus.js";
+import NotificationStatus from "./enums/NotificationStatus";
 import NotificationProvider from "./NotificationProviders/NotificationProvider";
 import { NotiicationPayload } from "./NotificationProviders/NotificationProviderBase";
-import NotificationRepository from "./NotificationRepository.js";
+import NotificationRepository from "./NotificationRepository";
 
 class NotificationService {
     constructor(

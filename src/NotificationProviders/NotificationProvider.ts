@@ -1,8 +1,8 @@
-import NotificationTypes from "../enums/NotificationTypes.js";
-import EmailNotificationProvider from "./EmailNotificationProvider.js";
+import NotificationTypes from "../enums/NotificationTypes";
+import EmailNotificationProvider from "./EmailNotificationProvider";
 import NotificationProviderBase, { NotiicationPayload } from "./NotificationProviderBase";
-import SMSNotificationProvider from "./SMSNotificationProvider.js";
-import CustomError from "../types/CustomError.js";
+import SMSNotificationProvider from "./SMSNotificationProvider";
+import CustomError from "../types/CustomError";
 
 class NotificationProvider {
     private ServiceRegistry = new Map<NotificationTypes, NotificationProviderBase>([

@@ -1,4 +1,4 @@
-import NotificationTypes from "../enums/NotificationTypes.js";
+import NotificationTypes from "../enums/NotificationTypes";
 import NotificationProviderBase, { NotiicationPayload } from "./NotificationProviderBase";
 
 interface SMSNotificationPayload extends NotiicationPayload{

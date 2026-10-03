@@ -1,6 +1,6 @@
 import NotificationStatus from "./enums/NotificationStatus";
-import { NotiicationPayload } from "./NotificationProviders/NotificationProviderBase.js";
-import CustomError from "./types/CustomError.js";
+import { NotiicationPayload } from "./NotificationProviders/NotificationProviderBase";
+import CustomError from "./types/CustomError";
 
 
 interface NotificationEntity {
