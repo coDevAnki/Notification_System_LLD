@@ -10,7 +10,9 @@ class EmailNotificationProvider implements NotificationProviderBase<EmailNotific
     
     type= NotificationTypes.EMAIL
     validatePayload(payload: EmailNotificationPayload){
-        return true;
+        if (!payload.email) return { isValid: false, message: "Missing required field: email" };
+        if (!payload.message) return { isValid: false, message: "Missing required field: message" };
+        return { isValid: true };
     }
     sendNotification(payload: EmailNotificationPayload) {
         return {success: true, attemptedTime: Date.now()};

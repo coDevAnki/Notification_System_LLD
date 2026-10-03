@@ -11,7 +11,9 @@ class SMSNotificationProvider implements NotificationProviderBase<SMSNotificatio
 
     type = NotificationTypes.SMS
     validatePayload(payload: SMSNotificationPayload) {
-        return true;
+        if (!payload.phone) return { isValid: false, message: "Missing required field: phone" };
+        if (!payload.message) return { isValid: false, message: "Missing required field: message" };
+        return { isValid: true };
     }
     sendNotification(payload: SMSNotificationPayload) {
         return {success: true, attemptedTime: Date.now()};

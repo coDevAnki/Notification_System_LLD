@@ -11,7 +11,12 @@ class NotificationService {
 
     processSendMessage(payload: NotiicationPayload) {
         if (!this.notificationProvider.isValidChannel(payload)) {
-            return { success: false, message: "Invalid Payload" }
+            return { success: false, message: `Invalid channel: ${payload.channel}` }
+        }
+        
+        const validation = this.notificationProvider.isValidPayload(payload.channel, payload);
+        if (!validation.isValid) {
+            return { success: false, message: validation.message || "Invalid Payload" }
         }
         const record = this.notificationRepository.saveNotification(payload);
 

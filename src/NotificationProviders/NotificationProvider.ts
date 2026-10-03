@@ -13,8 +13,12 @@ class NotificationProvider {
         this.ServiceRegistry.set(type, provider);
     }
 
+    getNotficationProvider(channel: NotificationTypes){
+        return this.ServiceRegistry.get(channel);
+    }
+    
     sendNotification(payload: NotiicationPayload) {
-        const provider = this.ServiceRegistry.get(payload.channel)!;
+        const provider = this.getNotficationProvider(payload.channel)!;
         try {
             const response = provider.sendNotification(payload);
             return response
@@ -29,7 +33,12 @@ class NotificationProvider {
     }
 
     isValidChannel(payload: NotiicationPayload) {
-        return this.ServiceRegistry.has(payload.channel)
+        return this.ServiceRegistry.has(payload.channel) 
+    }
+    isValidPayload(channel: NotificationTypes, payload: NotiicationPayload): { isValid: boolean; message?: string } {
+        const provider = this.getNotficationProvider(channel)
+        if(provider) return provider.validatePayload(payload)
+        return { isValid: false, message: `No provider registered for channel: ${channel}` };    
     }
 }
 

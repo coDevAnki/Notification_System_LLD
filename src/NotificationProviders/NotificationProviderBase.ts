@@ -12,7 +12,7 @@ export interface NotificationResponse {
 }
 abstract class NotificationProviderBase<T extends NotiicationPayload = NotiicationPayload> {
     abstract type: NotificationTypes;
-    abstract validatePayload(payload: T): boolean;
+    abstract validatePayload(payload: T): { isValid: boolean; message?: string };
     abstract sendNotification(payload: T): NotificationResponse; 
 }
 

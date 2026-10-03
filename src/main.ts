@@ -7,7 +7,7 @@ import EmailNotificationProvider from './NotificationProviders/EmailNotification
 import SMSNotificationProvider from './NotificationProviders/SMSNotificationProvider';
 
 function start(){
-    const payload = {channel: NotificationTypes.EMAIL, userId:1, message:"I want to talk" }
+    const payload = {channel: NotificationTypes.EMAIL, userId:1, message:"I want to talk", email: "abcd@gmail.com"}
     const notificationRepository = new NotificationRepository()
     console.log('1...')
     notificationRepository.log()
