@@ -37,9 +37,7 @@ class NotificationRepository {
             throw new CustomError('Invalid notification id')
         }
         const obj = this.indexedNotificationByIds[id.toString()];
-        Object.keys(data).forEach(field => {
-            obj[field] = data[field]
-        })
+        Object.assign(obj, data);
     }
     private save(notification: NotificationEntity) {
         // console.log(notification, this.indexedNotificationByIds, this.notifications)

@@ -5,24 +5,26 @@ import SMSNotificationProvider from "./SMSNotificationProvider";
 import CustomError from "../types/CustomError";
 
 class NotificationProvider {
-    private ServiceRegistry = new Map<NotificationTypes, NotificationProviderBase>([
-        [NotificationTypes.EMAIL, new EmailNotificationProvider()],
-        [NotificationTypes.SMS, new SMSNotificationProvider()]
-    ]);
+    private ServiceRegistry = new Map<NotificationTypes, NotificationProviderBase>();
+        // [[NotificationTypes.EMAIL, new EmailNotificationProvider()],
+        // [NotificationTypes.SMS, new SMSNotificationProvider()]]
+
+    addNotficationProvider(type: NotificationTypes, provider: NotificationProviderBase){
+        this.ServiceRegistry.set(type, provider);
+    }
 
     sendNotification(payload: NotiicationPayload) {
         const provider = this.ServiceRegistry.get(payload.channel)!;
         try {
             const response = provider.sendNotification(payload);
-            // console.log(response)
             return response
         }
         catch (e) {
             if (e instanceof CustomError) {
-                return { success: false, message: (e as CustomError).message }
+                return { success: false, attemptedTime: Date.now(), message: (e as CustomError).message }
             }
 
-            return { success: false, message: "Something went wrong" }
+            return { success: false, attemptedTime: Date.now(), message: "Something went wrong" }
         }
     }
 
