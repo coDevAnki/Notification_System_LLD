@@ -14,16 +14,33 @@ class NotificationService {
             return { success: false, message: "Invalid Payload" }
         }
         const record = this.notificationRepository.saveNotification(payload);
-        console.log('2...')
-        this.notificationRepository.log()
-        let response = this.notificationProvider.sendNotification(payload);
 
-        this.notificationRepository.updateNotification(record.id, {
-            status: response.success ? NotificationStatus.SUCCESS : NotificationStatus.FAILIED,
-            lastAttemptedAt: response.attemptedTime
-        })
+        try {
+            let response = this.notificationProvider.sendNotification(payload);
+
+            this.notificationRepository.updateNotification(record.id, {
+                status: response.success ? NotificationStatus.SUCCESS : NotificationStatus.FAILIED,
+                lastAttemptedAt: response.attemptedTime
+            })
+
+            return {
+                success: response.success,
+                message: response.success
+                    ? `${payload.channel} notification sent successfully`
+                    : `${payload.channel} notification failed`
+            }
+        } catch (error) {
+            this.notificationRepository.updateNotification(record.id, {
+                status: NotificationStatus.FAILIED,
+                lastAttemptedAt: Date.now()
+            })
+
+            return {
+                success: false,
+                message: error instanceof Error ? error.message : `${payload.channel} notification failed unexpectedly`
+            }
+        }
     }
 }
-
 
 export default NotificationService;

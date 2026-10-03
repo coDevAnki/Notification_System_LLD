@@ -8,7 +8,7 @@ interface NotificationEntity {
     userId: number;
     status: NotificationStatus;
     message: string;
-    lastAttemptedAt?: Date;
+    lastAttemptedAt?: ReturnType<typeof Date.now>;
     createdAt: ReturnType<typeof Date.now>;
     updatedAt: ReturnType<typeof Date.now>;
 }
@@ -33,7 +33,7 @@ class NotificationRepository {
     }
 
     updateNotification(id: number, data: Omit<NotificationEntity, "id" | "userId" | "message" | "createdAt" | "updatedAt">) {
-        if (id.toString() in this.indexedNotificationByIds === false) {
+        if (!(id.toString() in this.indexedNotificationByIds)) {
             throw new CustomError('Invalid notification id')
         }
         const obj = this.indexedNotificationByIds[id.toString()];
