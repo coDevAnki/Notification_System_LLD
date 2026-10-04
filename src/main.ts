@@ -6,7 +6,7 @@ import NotificationTypes from './enums/NotificationTypes';
 import EmailNotificationProvider from './NotificationProviders/EmailNotificationProvider';
 import SMSNotificationProvider from './NotificationProviders/SMSNotificationProvider';
 
-function start(){
+async function start(){
     const payload = {channel: NotificationTypes.EMAIL, userId:1, message:"I want to talk", email: "abcd@gmail.com"}
     const notificationRepository = new NotificationRepository()
     console.log('1...')
@@ -18,7 +18,7 @@ function start(){
 
     const notificationService = new NotificationService(notificationRepository, notificationProvider);
 
-    console.log(notificationService.processSendMessage(payload))
+    await notificationService.processSendMessage(payload)
     console.log('3...')
     notificationRepository.log()
 }

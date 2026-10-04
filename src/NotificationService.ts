@@ -9,7 +9,7 @@ class NotificationService {
         private notificationProvider: NotificationProvider) {
     }
 
-    processSendMessage(payload: NotiicationPayload) {
+    async processSendMessage(payload: NotiicationPayload) {
         if (!this.notificationProvider.isValidChannel(payload)) {
             return { success: false, message: `Invalid channel: ${payload.channel}` }
         }
@@ -21,8 +21,8 @@ class NotificationService {
         const record = this.notificationRepository.saveNotification(payload);
 
         try {
-            let response = this.notificationProvider.sendNotification(payload);
-
+            let response = await this.notificationProvider.sendNotification(payload);
+            console.log('resp...', response)
             this.notificationRepository.updateNotification(record.id, {
                 status: response.success ? NotificationStatus.SUCCESS : NotificationStatus.FAILIED,
                 lastAttemptedAt: response.attemptedTime

@@ -17,10 +17,10 @@ class NotificationProvider {
         return this.ServiceRegistry.get(channel);
     }
     
-    sendNotification(payload: NotiicationPayload) {
+    async sendNotification(payload: NotiicationPayload) {
         const provider = this.getNotficationProvider(payload.channel)!;
         try {
-            const response = provider.sendNotification(payload);
+            const response = await provider.sendNotification(payload);
             return response
         }
         catch (e) {

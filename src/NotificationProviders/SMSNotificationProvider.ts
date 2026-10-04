@@ -15,7 +15,11 @@ class SMSNotificationProvider implements NotificationProviderBase<SMSNotificatio
         if (!payload.message) return { isValid: false, message: "Missing required field: message" };
         return { isValid: true };
     }
-    sendNotification(payload: SMSNotificationPayload) {
+    async sendNotification(payload: SMSNotificationPayload) {
+        await new Promise(res=>{
+            console.log('hiii');
+            setTimeout(res, 2000)
+        })
         return {success: true, attemptedTime: Date.now()};
     }
 }
